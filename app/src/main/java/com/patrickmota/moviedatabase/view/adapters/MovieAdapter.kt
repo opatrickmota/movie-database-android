@@ -1,22 +1,20 @@
 package com.patrickmota.moviedatabase.view.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.patrickmota.moviedatabase.R
+import com.patrickmota.moviedatabase.databinding.ItemMovieBinding
 import com.patrickmota.moviedatabase.model.Movie
-import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(private val onItemClicked : (Movie) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var items: List<Movie> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MovieViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        )
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MovieViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -35,18 +33,19 @@ class MovieAdapter(private val onItemClicked : (Movie) -> Unit) : RecyclerView.A
         this.items = movies
     }
 
-    class MovieViewHolder constructor(
-        itemView: View
-    ) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(
+        itemView: ItemMovieBinding
+    ) : RecyclerView.ViewHolder(itemView.root) {
         private lateinit var movie: Movie
+        private val binding = itemView
 
         fun bind(movie: Movie, onItemClicked: (Movie) -> Unit) {
             this.movie = movie
 
-            itemView.title.text = movie.title
-            itemView.date.text = movie.releaseDate
-            itemView.genre.text = movie.genres?.get(0)?.name
-            itemView.popularity.text = movie.popularity.toString()
+            binding.title.text = movie.title
+            binding.date.text = movie.releaseDate
+            binding.genre.text = movie.genres?.get(0)?.name
+            binding.popularity.text = movie.popularity.toString()
 
             val bannerUrl = "https://image.tmdb.org/t/p/w500/" + movie.posterPath
 
@@ -54,13 +53,13 @@ class MovieAdapter(private val onItemClicked : (Movie) -> Unit) : RecyclerView.A
                 .placeholder(R.color.gray)
                 .error(R.color.gray)
 
-            Glide.with(itemView.context)
+            Glide.with(binding.root.context)
                 .applyDefaultRequestOptions(requestOptions)
                 .load(bannerUrl)
                 .fitCenter()
-                .into(itemView.image)
+                .into(binding.image)
 
-            itemView.setOnClickListener{
+            binding.root.setOnClickListener{
                 onItemClicked(movie)
             }
         }

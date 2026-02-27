@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.patrickmota.moviedatabase.databinding.FragmentCreditBinding
 import com.patrickmota.moviedatabase.view.adapters.CreditAdapter
 import com.patrickmota.moviedatabase.viewmodel.fragments.CreditViewModel
-import kotlinx.android.synthetic.main.fragment_credit.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -53,7 +52,7 @@ class CreditFragment() : Fragment() {
                 }
             }
 
-            val recyclerView: RecyclerView = recyclerviewCast
+            val recyclerView: RecyclerView = binding.recyclerviewCast
 
             creditAdapter = CreditAdapter()
 

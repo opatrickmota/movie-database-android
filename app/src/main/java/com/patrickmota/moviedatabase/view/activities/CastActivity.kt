@@ -5,14 +5,19 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.patrickmota.moviedatabase.R
+import com.patrickmota.moviedatabase.databinding.ActivityCastBinding
 import com.patrickmota.moviedatabase.view.fragments.CreditFragment
-import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 class CastActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityCastBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityCastBinding.inflate(layoutInflater)
         setTheme(R.style.Theme_MovieDatabase)
-        setContentView(R.layout.activity_cast)
+        setContentView(binding.root)
 
         val extras: Bundle? = intent.extras
         val movieId = extras?.get("movieId")
@@ -22,7 +27,7 @@ class CastActivity : AppCompatActivity() {
     }
 
     private fun backToPreviousScreen() {
-        topAppBar.setNavigationOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             onBackPressed()
         }
     }

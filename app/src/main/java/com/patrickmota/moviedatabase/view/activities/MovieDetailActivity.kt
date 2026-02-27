@@ -16,7 +16,6 @@ import com.patrickmota.moviedatabase.view.adapters.PhotoAdapter
 import com.patrickmota.moviedatabase.view.fragments.ConnectionErrorFragment
 import com.patrickmota.moviedatabase.view.fragments.CreditFragment
 import com.patrickmota.moviedatabase.viewmodel.activities.MovieDetailViewModel
-import kotlinx.android.synthetic.main.activity_movie_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieDetailActivity : AppCompatActivity() {
@@ -42,7 +41,7 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun backToPreviousScreen() {
-        topAppBar.setNavigationOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             finish()
         }
     }
@@ -60,35 +59,35 @@ class MovieDetailActivity : AppCompatActivity() {
                 .applyDefaultRequestOptions(requestOptions)
                 .load(bannerUrl)
                 .fitCenter()
-                .into(imageDetail)
+                .into(binding.imageDetail)
 
-            titleDetail.text = it.title
-            popularityDetail.text = it.popularity.toString()
-            dateDetail.text = it.releaseDate
+            binding.titleDetail.text = it.title
+            binding.popularityDetail.text = it.popularity.toString()
+            binding.dateDetail.text = it.releaseDate
 
             val genres = it.genres.joinToString(", ") { genre -> genre.name }
 
-            genreDetail.text = genres
-            synopsisText.text = it.overview
+            binding.genreDetail.text = genres
+            binding.synopsisText.text = it.overview
 
-            if (synopsisText.text.length >= 200) {
-                showMore.visibility = View.VISIBLE
-                synopsisText.maxLines = 4
+            if (binding.synopsisText.text.length >= 200) {
+                binding.showMore.visibility = View.VISIBLE
+                binding.synopsisText.maxLines = 4
             } else {
-                showMore.visibility = View.GONE
+                binding.showMore.visibility = View.GONE
             }
 
             var changed = false
 
-            showMore.setOnClickListener {
+            binding.showMore.setOnClickListener {
                 if (!changed) {
-                    synopsisText.maxLines = 20
-                    showMore.setText(R.string.show_less)
-                    showMore.visibility = View.VISIBLE
+                    binding.synopsisText.maxLines = 20
+                    binding.showMore.setText(R.string.show_less)
+                    binding.showMore.visibility = View.VISIBLE
                     changed = true
                 } else {
-                    showMore.setText(R.string.show_more)
-                    synopsisText.maxLines = 4
+                    binding.showMore.setText(R.string.show_more)
+                    binding.synopsisText.maxLines = 4
                     changed = false
                 }
             }
@@ -102,7 +101,7 @@ class MovieDetailActivity : AppCompatActivity() {
     private fun initPhotoRecyclerView(id: String) {
         movieDetailViewModel.getPhotos(id)
         movieDetailViewModel.imageResponse().observe(this) {
-            val recyclerView: RecyclerView = horizontalPhotosRecyclerView
+            val recyclerView: RecyclerView = binding.horizontalPhotosRecyclerView
 
             photoAdapter = PhotoAdapter()
 
@@ -133,8 +132,8 @@ class MovieDetailActivity : AppCompatActivity() {
     }
 
     private fun listenerOnButtons(movieId: String) {
-        val castButton = viewAllCast
-        val photoButton = viewAllPhotos
+        val castButton = binding.viewAllCast
+        val photoButton = binding.viewAllPhotos
 
         castButton.setOnClickListener {
             startActivity(

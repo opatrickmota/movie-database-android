@@ -12,7 +12,6 @@ import com.patrickmota.moviedatabase.databinding.ActivityPhotoBinding
 import com.patrickmota.moviedatabase.view.adapters.PhotoAdapter
 import com.patrickmota.moviedatabase.view.fragments.ConnectionErrorFragment
 import com.patrickmota.moviedatabase.viewmodel.activities.PhotoViewModel
-import kotlinx.android.synthetic.main.activity_photo.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PhotoActivity : AppCompatActivity() {
@@ -36,7 +35,7 @@ class PhotoActivity : AppCompatActivity() {
     }
 
     private fun backToPreviousScreen() {
-        topAppBar.setNavigationOnClickListener {
+        binding.topAppBar.setNavigationOnClickListener {
             onBackPressed()
         }
     }
@@ -45,7 +44,7 @@ class PhotoActivity : AppCompatActivity() {
         photoViewModel.getImage(movieId)
         photoViewModel.imageResponse().observe(this) {
 
-            val recyclerView: RecyclerView = recyclerviewPhoto
+            val recyclerView: RecyclerView = binding.recyclerviewPhoto
 
             photoAdapter = PhotoAdapter()
 

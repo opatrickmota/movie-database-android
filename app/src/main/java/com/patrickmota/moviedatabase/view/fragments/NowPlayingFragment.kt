@@ -12,7 +12,6 @@ import com.patrickmota.moviedatabase.databinding.FragmentMainBinding
 import com.patrickmota.moviedatabase.view.activities.MovieDetailActivity
 import com.patrickmota.moviedatabase.view.adapters.MovieAdapter
 import com.patrickmota.moviedatabase.viewmodel.activities.MainViewModel
-import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -42,7 +41,7 @@ class NowPlayingFragment : Fragment() {
     private fun initUi() {
         mainViewModel.getNowPlayingMovie()
         mainViewModel.movieResponse().observe(viewLifecycleOwner) {
-            val recyclerView: RecyclerView = recyclerview
+            val recyclerView: RecyclerView = binding.recyclerview
 
             movieAdapter = MovieAdapter { movie ->
                 startActivity(
